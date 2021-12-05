@@ -5,9 +5,12 @@ import java.awt.*;
 import java.awt.event.*;
 import acm.util.RandomGenerator;
 
+
 public class physics extends GraphicsProgram
 {
     private ball ball;
+
+    private RandomGenerator rg = new RandomGenerator();
 
     public void createBall(double posX, double posY)
     {
@@ -50,7 +53,10 @@ public class physics extends GraphicsProgram
             ballInstance.setColor(Color.RED);
             ballInstance.setLocation(posX, posY);
             direction = 1;
-            velocity = 5;
+            velocity = 10;
+
+            stX = posX;
+            stY = posY;
 
             dir = new GLine(posX, posY, 15*Math.cos(direction), 15*Math.sin(direction));
             dir.setColor(Color.BLACK);
@@ -58,19 +64,39 @@ public class physics extends GraphicsProgram
 
         public void move()
         {
-            checkCollision();
-            posX += Math.sin(direction * velocity);
-            posY += Math.cos(direction * velocity);
+            //checkCollision();
+            if(lineAlllowed)
+            {
+                stX = posX;
+                stY = posY;
+                lineAlllowed = false;
+            }
+
+            posX += Math.sin(direction) * velocity;
+            posY -= Math.cos(direction) * velocity;
             ballInstance.setLocation(posX, posY);
         }
+
+        public double stX;
+        public double stY;
+
+        public boolean lineAlllowed;
+
 
         public void checkCollision()
         {
             if(posX <= 0 || posX + size >= 590 || posY <= 0 || posY + size >= 780)
             {
-                direction += Math.PI/2;
+                direction += Math.PI/4;//rg.nextDouble(Math.PI/2-Math.PI/6, Math.PI/2+Math.PI/6);
+                lineAlllowed = true;
             }
+
             //drawDirection();
+        }
+
+        public GLine getLine()
+        {
+            return new GLine(stX, stY, posX, posY);
         }
 
         public void drawDirection()

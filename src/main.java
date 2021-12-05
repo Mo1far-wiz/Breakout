@@ -36,13 +36,25 @@ public class main extends GraphicsProgram {
         physics.ball ball = physics.getBall();
 
         add(ball.getBallInstance());
-        add(ball.dir);
+        //add(ball.dir);
 
         ball.setDirection(rg.nextDouble(0.1,2*Math.PI));
 
+        /*physics.createBall(200, 200);
+        physics.ball ball2 = physics.getBall();
+        add(ball2.getBallInstance());
+        ball2.setDirection(rg.nextDouble(0.1,2*Math.PI));*/
+
         while(true)
         {
+            ball.checkCollision();
             ball.move();
+
+            /*ball2.checkCollision();
+            if(ball2.lineAlllowed)
+                add(ball2.getLine());
+            ball2.move();*/
+
             pause(5);
         }
     }
@@ -53,7 +65,7 @@ public class main extends GraphicsProgram {
             for (int y = 0; y < NBRICKS_ROWS; ++y) {
                 int bx = x * (BRICK_WIDTH + BRICK_SEP);
                 int by = BRICK_Y_OFFSET + y * (BRICK_HEIGHT + BRICK_SEP);
-                add(bricks.setBrick(bx, by, y));
+                //add(bricks.setBrick(bx, by, y));
             }
     }
 
