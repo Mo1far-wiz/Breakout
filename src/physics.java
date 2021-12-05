@@ -25,7 +25,12 @@ public class physics extends GraphicsProgram
         private double posX;
         private double posY;
 
-        public double direction;
+        private double size;
+
+        private double direction;
+
+        private double velocity;
+
 
         private GOval ballInstance;
 
@@ -34,21 +39,54 @@ public class physics extends GraphicsProgram
             return ballInstance;
         }
 
+        public GLine dir;
+
+        //public double getDirection() { return direction; }
+
+        public void setDirection(double direction) { this.direction = direction; }
+
         public ball(double posX, double posY)
         {
             this.posX = posX;
             this.posY = posY;
-            ballInstance = new GOval(20, 20);
+            size = 20;
+            ballInstance = new GOval(size, size);
             ballInstance.setFilled(true);
             ballInstance.setColor(Color.RED);
             ballInstance.setLocation(posX, posY);
-            direction = 0;
+            direction = 1;
+            velocity = 5;
+
+            dir = new GLine(posX, posY, 15*Math.cos(direction), 15*Math.sin(direction));
+            dir.setColor(Color.BLACK);
         }
 
         public void move()
         {
-            posX += Math.sin(direction);
-            posY += Math.cos(direction);
+            checkCollision();
+            posX += Math.sin(direction * velocity);
+            posY += Math.cos(direction * velocity);
+            ballInstance.setLocation(posX, posY);
+        }
+
+        public void checkCollision()
+        {
+            if(posX <= 0 || posX + size >= 590 || posY <= 0 || posY + size >= 780)
+            {
+                direction += Math.PI/2;
+            }
+            drawDirection();
+        }
+
+        public void drawDirection()
+        {
+            dir.setStartPoint(posX, posY);
+
+            double endY = posY + 25*Math.sin(direction);
+
+            double endX = posX +  (endY < posY ? 25*Math.cos(-direction) : 25*Math.cos(direction));
+
+            dir.setEndPoint(endX, endY);
         }
 
     }

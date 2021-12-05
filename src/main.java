@@ -27,6 +27,7 @@ public class main extends GraphicsProgram
     private static final int BRICK_Y_OFFSET = 70;
 
     private physics physics = new physics();
+    private RandomGenerator rg = new RandomGenerator();
 
     public void run()
     {
@@ -36,10 +37,14 @@ public class main extends GraphicsProgram
         physics.ball ball = physics.getBall();
 
         add(ball.getBallInstance());
+        add(ball.dir);
+
+        ball.setDirection(rg.nextDouble(0.1,2*Math.PI));
 
         while(true)
         {
-
+            ball.move();
+            pause(5);
         }
     }
 }
