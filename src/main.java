@@ -2,6 +2,6 @@ public class main
 {
     public void run()
     {
-        int a = 1 + 3;
+        int a = 1 + 5;
     }
 }
