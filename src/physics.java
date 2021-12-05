@@ -11,7 +11,7 @@ public class physics extends GraphicsProgram
 
     public void createBall(double posX, double posY)
     {
-        ball = new ball(posX, posY);
+        this.ball = new ball(posX, posY);
     }
 
     public ball getBall()
@@ -27,6 +27,11 @@ public class physics extends GraphicsProgram
 
         private GOval ballInstance;
 
+        public GOval getBallInstance()
+        {
+            return ballInstance;
+        }
+
         public ball(double posX, double posY)
         {
             this.posX = posX;
@@ -35,7 +40,7 @@ public class physics extends GraphicsProgram
             ballInstance.setFilled(true);
             ballInstance.setColor(Color.RED);
             ballInstance.setLocation(posX, posY);
-            add(ballInstance);
+
         }
     }
 }

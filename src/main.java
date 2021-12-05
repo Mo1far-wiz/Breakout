@@ -14,5 +14,6 @@ public class main extends GraphicsProgram
         this.setSize(600, 800);
 
         physics.createBall(200, 200);
+        add(physics.getBall().getBallInstance());
     }
 }
