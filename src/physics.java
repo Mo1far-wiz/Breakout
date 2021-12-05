@@ -14,20 +14,20 @@ public class physics extends GraphicsProgram
         this.ball = new ball(posX, posY);
     }
 
-    public ball getBall()
+    public GOval getBall()
     {
-        return ball;
+        return ball.getBallInstance();
     }
 
 
-    public class ball
+    private class ball
     {
         private double posX;
         private double posY;
 
         private GOval ballInstance;
 
-        public GOval getBallInstance()
+        private GOval getBallInstance()
         {
             return ballInstance;
         }
@@ -40,7 +40,6 @@ public class physics extends GraphicsProgram
             ballInstance.setFilled(true);
             ballInstance.setColor(Color.RED);
             ballInstance.setLocation(posX, posY);
-
         }
     }
 }
