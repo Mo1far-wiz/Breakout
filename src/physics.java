@@ -23,6 +23,7 @@ public class physics extends GraphicsProgram
     public class ball
     {
         private double posX;
+
         private double posY;
 
         private double size;
@@ -31,17 +32,11 @@ public class physics extends GraphicsProgram
 
         private double velocity;
 
-
         private GOval ballInstance;
-
-        public GOval getBallInstance()
-        {
-            return ballInstance;
-        }
 
         public GLine dir;
 
-        //public double getDirection() { return direction; }
+        public GOval getBallInstance() { return ballInstance; }
 
         public void setDirection(double direction) { this.direction = direction; }
 
@@ -75,7 +70,7 @@ public class physics extends GraphicsProgram
             {
                 direction += Math.PI/2;
             }
-            drawDirection();
+            //drawDirection();
         }
 
         public void drawDirection()
