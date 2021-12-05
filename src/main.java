@@ -2,6 +2,6 @@ public class main
 {
     public void run()
     {
-        prinltn("Java gavno");
+        int a = 1 + 3;
     }
 }
