@@ -22,9 +22,9 @@ public class main extends GraphicsProgram
             (APPLICATION_WIDTH - (NBRICKS_PER_ROW - 1) * BRICK_SEP) / NBRICKS_PER_ROW;
     private static final int BRICK_HEIGHT = 8;
 
-    private static final int BALL_RADIUS = 10;
-
     private static final int BRICK_Y_OFFSET = 70;
+
+    private static final int BALL_RADIUS = 10;
 
     private physics physics = new physics();
 
@@ -36,4 +36,32 @@ public class main extends GraphicsProgram
 
         add(physics.getBall());
     }
+
+    public int getNBRICKS_PER_ROW(){
+        return NBRICKS_PER_ROW;
+    }
+    public int getNBRICKS_ROWS(){
+        return NBRICKS_ROWS;
+    }
+
+    public int getBRICK_SEP(){
+        return BRICK_SEP;
+    }
+
+    public int getBRICK_WIDTH(){
+        return BRICK_WIDTH;
+    }
+
+    public int getBRICK_HEIGHT(){
+        return BRICK_HEIGHT;
+    }
+
+    public int getBRICK_Y_OFFSET(){
+        return BRICK_Y_OFFSET;
+    }
+
+    public int getBALL_RADIUS(){
+        return BALL_RADIUS;
+    }
+
 }
