@@ -33,7 +33,13 @@ public class main extends GraphicsProgram
         this.setSize(APPLICATION_WIDTH, APPLICATION_HEIGHT);
 
         physics.createBall(200, 200);
+        physics.ball ball = physics.getBall();
 
-        add(physics.getBall());
+        add(ball.getBallInstance());
+
+        while(true)
+        {
+
+        }
     }
 }
