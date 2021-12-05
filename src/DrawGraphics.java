@@ -1,10 +1,11 @@
-import acm.graphics.GRect;
+/*import acm.graphics.GRect;
 import acm.graphics.GRoundRect;
+import acm.program.GraphicsProgram;
 
 import java.awt.*;
 
-public class DrawGraphics extends main {
-    public GRoundRect setBrick(double x, double y, int nrow){
+public class DrawGraphics extends GraphicsProgram {
+    public GRect setBrick(double x, double y, int nrow){
         GRoundRect brick = new GRoundRect(getBRICK_WIDTH(), getBRICK_HEIGHT());
         nrow /= 2;
         brick.setFilled(true);
@@ -21,4 +22,4 @@ public class DrawGraphics extends main {
             brick.setColor(Color.decode("#00b8d4"));
         return brick;
     }
-}
+}*/

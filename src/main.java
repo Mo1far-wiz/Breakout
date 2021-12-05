@@ -25,48 +25,124 @@ public class main extends GraphicsProgram {
 
     private static final int BALL_RADIUS = 10;
 
-    private physics physics = new physics();
+    //private physics physics = new physics();
+    //private DrawGraphics bricks = new DrawGraphics();
     private RandomGenerator rg = new RandomGenerator();
 
     public void run()
     {
         this.setSize(APPLICATION_WIDTH, APPLICATION_HEIGHT);
 
-        physics.createBall(200, 200);
-        physics.ball ball = physics.getBall();
+        this.setBackground(Color.decode("#263238"));
+        drawBricks();
+
+        //physics.createBall(300, 600);
+        ball ball = new ball(300, 600);
 
         add(ball.getBallInstance());
-        //add(ball.dir);
+        add(ball.temp);
 
         ball.setDirection(rg.nextDouble(0.1,2*Math.PI));
-
-        /*physics.createBall(200, 200);
-        physics.ball ball2 = physics.getBall();
-        add(ball2.getBallInstance());
-        ball2.setDirection(rg.nextDouble(0.1,2*Math.PI));*/
 
         while(true)
         {
             ball.checkCollision();
             ball.move();
+            pause(10);
+        }
+    }
 
-            /*ball2.checkCollision();
-            if(ball2.lineAlllowed)
-                add(ball2.getLine());
-            ball2.move();*/
+    public class ball
+    {
+        private double posX;
+        private double posY;
 
-            pause(5);
+        private double stX;
+        private double stY;
+
+        private double size;
+
+        private double direction;
+
+        private double velocity;
+
+        private GOval ballInstance;
+
+        public GOval getBallInstance() { return ballInstance; }
+
+        public void setDirection(double direction) { this.direction = direction; }
+
+        public ball(double posX, double posY)
+        {
+            this.posX = posX;
+            this.posY = posY;
+            size = 10;
+            direction = 1;
+            velocity = 6;
+            ballInstance = new GOval(size, size);
+            ballInstance.setFilled(true);
+            ballInstance.setColor(Color.WHITE);
+            ballInstance.setLocation(posX, posY);
+            temp.setVisible(false);
+            stX = posX;
+            stY = posY;
+        }
+
+        public void move()
+        {
+            posX += Math.sin(direction) * velocity;
+            posY -= Math.cos(direction) * velocity;
+            ballInstance.setLocation(posX, posY);
+        }
+
+        public GOval temp = new GOval(10, 10);
+
+        public void checkCollision()
+        {
+            temp.setLocation(posX + 2*Math.sin(direction) * velocity, posY - 2*Math.cos(direction) * velocity);
+
+            // screen borders
+            if(temp.getX() <= 0 || temp.getX() + size >= 590 || temp.getY() <= 0 || temp.getY() + size >= 780)
+            {
+                direction += Math.PI/4;
+            }
+
+            // collision with brick
+            GObject elCollided = getElementAt(temp.getX(), temp.getY());
+            if(elCollided != null)
+            {
+                remove(elCollided);
+                direction += Math.PI/4;
+            }
         }
     }
 
     public void drawBricks() {
-        DrawGraphics bricks = new DrawGraphics();
+
         for (int x = 0; x < NBRICKS_PER_ROW; ++x)
             for (int y = 0; y < NBRICKS_ROWS; ++y) {
                 int bx = x * (BRICK_WIDTH + BRICK_SEP);
                 int by = BRICK_Y_OFFSET + y * (BRICK_HEIGHT + BRICK_SEP);
-                //add(bricks.setBrick(bx, by, y));
+                add(setBrick(bx, by, y));
             }
+    }
+
+    public GRect setBrick(double x, double y, int nrow){
+        GRect brick = new GRect(getBRICK_WIDTH(), getBRICK_HEIGHT());
+        nrow /= 2;
+        brick.setFilled(true);
+        brick.setLocation(x, y);
+        if(nrow == 0)
+            brick.setColor(Color.decode("#d50000"));
+        else if(nrow == 1)
+            brick.setColor(Color.decode("#f57f17"));
+        else if(nrow == 2)
+            brick.setColor(Color.decode("#ffea00"));
+        else if(nrow == 3)
+            brick.setColor(Color.decode("#558b2f"));
+        else if(nrow == 4)
+            brick.setColor(Color.decode("#00b8d4"));
+        return brick;
     }
 
     public int getNBRICKS_PER_ROW() {
