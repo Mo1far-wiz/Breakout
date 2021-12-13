@@ -3,12 +3,18 @@ import acm.graphics.GRoundRect;
 
 import java.awt.*;
 
-public class DrawGraphics extends main {
+public class GameObjects extends main {
     public GRoundRect setBrick(double x, double y, int nrow){
         GRoundRect brick = new GRoundRect(getBRICK_WIDTH(), getBRICK_HEIGHT());
-        nrow /= 2;
         brick.setFilled(true);
         brick.setLocation(x, y);
+
+        int color_rows = main.NBRICKS_ROWS / 5;
+        nrow /= color_rows;
+
+        if(nrow > 4)
+            nrow -= 5;
+
         if(nrow == 0)
             brick.setColor(Color.decode("#d50000"));
         else if(nrow == 1)

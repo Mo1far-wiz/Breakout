@@ -1,9 +1,6 @@
-import acm.graphics.*;
 import acm.program.GraphicsProgram;
 
 import java.awt.*;
-import java.awt.event.*;
-import acm.util.RandomGenerator;
 
 public class main extends GraphicsProgram {
     public static final int APPLICATION_WIDTH = 600;
@@ -13,7 +10,7 @@ public class main extends GraphicsProgram {
     public static final int PADDLE_HEIGHT = 10;
 
     private static final int NBRICKS_PER_ROW = 10;
-    private static final int NBRICKS_ROWS = 10;
+    public static final int NBRICKS_ROWS = 15;
 
     private static final int BRICK_SEP = 10;
 
@@ -38,7 +35,7 @@ public class main extends GraphicsProgram {
     }
 
     public void drawBricks() {
-        DrawGraphics bricks = new DrawGraphics();
+        GameObjects bricks = new GameObjects();
         for (int x = 0; x < NBRICKS_PER_ROW; ++x)
             for (int y = 0; y < NBRICKS_ROWS; ++y) {
                 int bx = x * (BRICK_WIDTH + BRICK_SEP);
