@@ -17,4 +17,9 @@ public class Vars {
     public static final int BRICK_Y_OFFSET = 70;
 
     public static final int BALL_RADIUS = 10;
+
+    public static double MouseX;
+    public static double MouseY;
+
+
 }

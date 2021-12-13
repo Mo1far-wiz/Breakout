@@ -1,10 +1,65 @@
-import acm.graphics.GObject;
+import acm.graphics.GLine;
+import acm.graphics.GOval;
 import acm.graphics.GRect;
 import acm.graphics.GRoundRect;
 
 import java.awt.*;
 
-public class GameObjects{
+public class GameObjects
+{
+    public static class ball
+    {
+        private double posX;
+        private double posY;
+
+        private double size;
+
+        private double direction;
+
+        private double velocity;
+
+        private GOval ballInstance;
+
+        public GOval getBallInstance()
+        {
+            return ballInstance;
+        }
+
+        public void setDirection(double direction)
+        {
+            this.direction = direction;
+        }
+
+        public ball(double posX, double posY, double size)
+        {
+            this.posX = posX;
+            this.posY = posY;
+            this.size = size;
+            ballInstance = new GOval(size, size);
+            ballInstance.setFilled(true);
+            ballInstance.setColor(Color.WHITE);
+            ballInstance.setLocation(posX, posY);
+            direction = 1;
+            velocity = 5;
+        }
+
+        public void move()
+        {
+            checkCollisions();
+            posX += Math.sin(direction * velocity);
+            posY -= Math.cos(direction * velocity);
+            ballInstance.setLocation(posX, posY);
+        }
+
+        public void checkCollisions()
+        {
+            if (posX <= 0 || posX + size >= 590 || posY <= 0 || posY + size >= 780)
+            {
+                direction += Math.PI / 4;
+            }
+            // -------------------------------------
+        }
+    }
 
     public static class Bricks {
         public static GRoundRect setBrick(double x, double y, int nrow) {
@@ -33,12 +88,43 @@ public class GameObjects{
     }
 
     public static class Platform{
-        private GObject platform = new GRect(0, 0);
-        private double platform_weight;
-        private double platform_height;
+        private GRect platformInstance;
 
-        public Platform(){
+        private double posX;
+        private double posY;
+        private double width;
+        private double height;
 
+        public GRect getPlatformInstance()
+        {
+            return platformInstance;
+        }
+
+        public Platform(double posX, double posY, double width, double height)
+        {
+            this.posX = posX;
+            this.posY = posY;
+            this.width = width;
+            this.height = height;
+
+            platformInstance = new GRect(posX, posY, width, height);
+
+            platformInstance.setFilled(true);
+            platformInstance.setColor(Color.WHITE);
+        }
+
+        public void move()
+        {
+            //checkCollisions();
+            double trgX = Vars.MouseX - width/2;
+            double angle = Math.atan((70) / (trgX - this.posX));
+
+            if(trgX >= posX)
+                posX += Math.cos(angle) * 3;
+            else
+                posX -= Math.cos(angle) * 3;
+
+            platformInstance.setLocation(posX, posY);
         }
     }
 }
