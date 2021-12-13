@@ -45,20 +45,11 @@ public class GameObjects
 
         public void move()
         {
-            checkCollisions();
             posX += Math.sin(direction) * velocity;
             posY -= Math.cos(direction) * velocity;
             ballInstance.setLocation(posX, posY);
         }
 
-        public void checkCollisions()
-        {
-            if (posX <= 0 || posX + size >= Vars.APPLICATION_WIDTH || posY <= 0 || posY + size >= Vars.APPLICATION_HEIGHT)
-            {
-                direction += Math.PI / 4;
-            }
-            // -------------------------------------
-        }
     }
 
     public static class Bricks {

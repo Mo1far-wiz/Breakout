@@ -36,7 +36,7 @@ public class main extends GraphicsProgram {
         Vars.MouseY = e.getY();
     }
 
-    public void drawBricks() {
+    private void drawBricks() {
         for (int x = 0; x < Vars.NBRICKS_PER_ROW; ++x)
             for (int y = 0; y < Vars.NBRICKS_ROWS; ++y) {
                 int bx = x * (Vars.BRICK_WIDTH + Vars.BRICK_SEP);
