@@ -7,22 +7,39 @@ import acm.util.RandomGenerator;
 
 public class main extends GraphicsProgram
 {
+    private boolean gameStarted = false;
     public void run()
     {
         this.setSize(Vars.APPLICATION_WIDTH, Vars.APPLICATION_HEIGHT);
         this.setBackground(Color.decode("#263238"));
+
+        // init key listeners
         addMouseListeners();
         addKeyListeners();
 
-        drawBricks();
-
-        GameObjects.Platform platform = new GameObjects.Platform(100, 600, Vars.PADDLE_WIDTH, Vars.PADDLE_HEIGHT);
+        // draw platform
+        GameObjects.Platform platform = new GameObjects.Platform((Vars.APPLICATION_WIDTH-15)/2 - Vars.PADDLE_WIDTH/2, 600, Vars.PADDLE_WIDTH, Vars.PADDLE_HEIGHT);
         add(platform.getPlatformInstance());
 
+        // draw ball
         GameObjects.ball ball = new GameObjects.ball(platform.getPlatformInstance().getX()+platform.getPlatformInstance().getWidth()/2 - Vars.BALL_RADIUS/2,
                 platform.getPlatformInstance().getY() - Vars.BALL_RADIUS, Vars.BALL_RADIUS);
         add(ball.getBallInstance());
 
+        // init menu
+        Menu menu = new Menu();
+        add(menu.getMenuGObject());
+
+        // wait 4 game to start
+        while(!gameStarted) { pause(5); }
+
+        // remove menu
+        remove(menu.getMenuGObject());
+
+        // draw bricks
+        drawBricks();
+
+        // game loop
         while(true)
         {
             ball.move();
@@ -34,6 +51,12 @@ public class main extends GraphicsProgram
     private void checkCollisions()
     {
 
+    }
+
+    public void keyPressed(KeyEvent e)
+    {
+        if(!gameStarted && e.getKeyCode() == 32)
+            gameStarted = true;
     }
 
     public void mouseMoved(MouseEvent e)
