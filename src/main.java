@@ -18,7 +18,8 @@ public class main extends GraphicsProgram {
         GameObjects.Platform platform = new GameObjects.Platform(100, 600, Vars.PADDLE_WIDTH, Vars.PADDLE_HEIGHT);
         add(platform.getPlatformInstance());
 
-
+        Menu menu = new Menu();
+        add(menu.getMenuGObject());
 
         while(true)
         {
