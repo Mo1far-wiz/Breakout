@@ -1,3 +1,4 @@
+import acm.graphics.GObject;
 import acm.program.GraphicsProgram;
 
 import java.awt.*;
@@ -7,6 +8,11 @@ import acm.util.RandomGenerator;
 
 public class main extends GraphicsProgram
 {
+    GameObjects.Platform platform = new GameObjects.Platform((Vars.APPLICATION_WIDTH-15)/2 - Vars.PADDLE_WIDTH/2,
+            600, Vars.PADDLE_WIDTH, Vars.PADDLE_HEIGHT);
+    GameObjects.ball ball = new GameObjects.ball(platform.getPlatformInstance().getX()+platform.getPlatformInstance().getWidth()/2 - Vars.BALL_RADIUS/2,
+            platform.getPlatformInstance().getY() - Vars.BALL_RADIUS - 15, Vars.BALL_RADIUS);
+
     private boolean gameStarted = false;
     public void run()
     {
@@ -18,12 +24,9 @@ public class main extends GraphicsProgram
         addKeyListeners();
 
         // draw platform
-        GameObjects.Platform platform = new GameObjects.Platform((Vars.APPLICATION_WIDTH-15)/2 - Vars.PADDLE_WIDTH/2, 600, Vars.PADDLE_WIDTH, Vars.PADDLE_HEIGHT);
         add(platform.getPlatformInstance());
 
         // draw ball
-        GameObjects.ball ball = new GameObjects.ball(platform.getPlatformInstance().getX()+platform.getPlatformInstance().getWidth()/2 - Vars.BALL_RADIUS/2,
-                platform.getPlatformInstance().getY() - Vars.BALL_RADIUS, Vars.BALL_RADIUS);
         add(ball.getBallInstance());
 
         // init menu
@@ -40,17 +43,49 @@ public class main extends GraphicsProgram
         drawBricks();
 
         // game loop
-        while(true)
+        while(!Vars.GameIsOver)
         {
+            checkCollisions();
             ball.move();
+            checkCollisions();
             platform.move();
-            pause(5);
+            pause(3);
         }
     }
 
     private void checkCollisions()
     {
+        double bx1 = ball.getBallInstance().getX() - 1;
+        double by1 = ball.getBallInstance().getY() - 1;
 
+        double bx2 = ball.getBallInstance().getX() + ball.getBallInstance().getWidth() - 1;
+        double by2 = by1;
+
+        double bx3 = ball.getBallInstance().getX() + 1;
+        double by3 = ball.getBallInstance().getY() + ball.getBallInstance().getHeight() + 1;
+
+        double bx4 = ball.getBallInstance().getX() + ball.getBallInstance().getWidth() + 1;
+        double by4 = by3;
+
+        GObject obj = null;
+
+        if(getElementAt(bx1, by1) != null)
+            obj = getElementAt(bx1, by1);
+        else if(getElementAt(bx2, by2) != null)
+            obj = getElementAt(bx2, by2);
+        else if(getElementAt(bx3, by3) != null)
+            obj = getElementAt(bx3, by3);
+        else if(getElementAt(bx4, by4) != null)
+            obj = getElementAt(bx4, by4);
+
+        if(obj == platform.getPlatformInstance()) {
+            ball.setDirection(Math.PI / 4);
+        }
+        else if(obj != null){
+            ball.setDirection(1.5 * Math.PI);
+            remove(obj);
+            GameObjects.Bricks.deleteBrick();
+        }
     }
 
     public void keyPressed(KeyEvent e)

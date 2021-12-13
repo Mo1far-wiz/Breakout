@@ -25,9 +25,14 @@ public class GameObjects
             return ballInstance;
         }
 
+        public double getDirection(){ return direction; }
+
         public void setDirection(double direction)
         {
-            this.direction = direction;
+            this.direction += direction;
+
+            if(this.direction >= 2 * Math.PI)
+                this.direction -= (2 * Math.PI);
         }
 
         public ball(double posX, double posY, double size)
@@ -53,17 +58,25 @@ public class GameObjects
 
         public void checkCollisions()
         {
-            if (posX <= 0 || posX + size >= Vars.APPLICATION_WIDTH - 15 || posY <= 0 || posY + size >= Vars.APPLICATION_HEIGHT - 65)
+            if (posX <= 0 || posX + size >= Vars.APPLICATION_WIDTH - 15 || posY <= 0)
             {
                 direction += Math.PI / 4;
+
+                if(direction >= 2 * Math.PI)
+                    direction -= (2 * Math.PI);
             }
-            // -------------------------------------
+            if(posY + size >= Vars.APPLICATION_HEIGHT - 65){
+                Vars.GameIsOver = true;
+                Vars.HasWon = false;
+            }
         }
     }
 
     public static class Bricks {
-        public static GRoundRect setBrick(double x, double y, int nrow) {
-            GRoundRect brick = new GRoundRect(Vars.BRICK_WIDTH, Vars.BRICK_HEIGHT);
+        private static int brick_count = Vars.NBRICKS_ROWS * Vars.NBRICKS_PER_ROW;
+
+        public static GRect setBrick(double x, double y, int nrow) {
+            GRect brick = new GRect(Vars.BRICK_WIDTH, Vars.BRICK_HEIGHT);
             brick.setFilled(true);
             brick.setLocation(x, y);
 
@@ -84,6 +97,10 @@ public class GameObjects
             else if (nrow == 4)
                 brick.setColor(Color.decode("#00b8d4"));
             return brick;
+        }
+
+        public static void deleteBrick(){
+            --brick_count;
         }
     }
 
