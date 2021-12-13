@@ -22,19 +22,31 @@ public class main extends GraphicsProgram {
 
     private static final int BALL_RADIUS = 10;
 
-    private physics physics = new physics();
+    //private GameObjects gameObjects = new GameObjects();
 
-    public void run() {
+    public void run()
+    {
         this.setSize(APPLICATION_WIDTH, APPLICATION_HEIGHT);
         this.setBackground(Color.decode("#263238"));
-        drawBricks();
+        //drawBricks();
+
+        GameObjects.ball ball = new GameObjects.ball(100, 100, BALL_RADIUS);
+
+        add(ball.getBallInstance());
+
+        while(true)
+        {
+            ball.move();
+            pause(5);
+        }
+
     }
 
     public static void main(String[] args) {
         new main().start(args);
     }
 
-    public void drawBricks() {
+    /*public void drawBricks() {
         GameObjects gameObjects_bricks = new GameObjects();
 
         for (int x = 0; x < NBRICKS_PER_ROW; ++x)
@@ -43,7 +55,7 @@ public class main extends GraphicsProgram {
                 int by = BRICK_Y_OFFSET + y * (BRICK_HEIGHT + BRICK_SEP);
                 add(GameObjects.Bricks.setBrick(bx, by, y));
             }
-    }
+    }*/
 
     public static int getNBRICKS_PER_ROW() {
         return NBRICKS_PER_ROW;
