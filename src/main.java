@@ -3,8 +3,7 @@ import acm.program.GraphicsProgram;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 
-public class main extends GraphicsProgram
-{
+public class main extends GraphicsProgram {
     public void run()
     {
         this.setSize(Vars.APPLICATION_WIDTH, Vars.APPLICATION_HEIGHT);
@@ -19,12 +18,16 @@ public class main extends GraphicsProgram
         GameObjects.Platform platform = new GameObjects.Platform(100, 600, Vars.PADDLE_WIDTH, Vars.PADDLE_HEIGHT);
         add(platform.getPlatformInstance());
 
+        Menu menu = new Menu();
+        add(menu.getMenuGObject());
+
         while(true)
         {
             ball.move();
             platform.move();
             pause(5);
         }
+
     }
 
     public void mouseMoved(MouseEvent e)
