@@ -80,7 +80,7 @@ public class physics extends GraphicsProgram
             double endY = posY + 25*Math.sin(direction);
 
             double endX = posX +  (endY < posY ? 25*Math.cos(-direction) : 25*Math.cos(direction));
-
+            
             dir.setEndPoint(endX, endY);
         }
 
