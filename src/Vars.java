@@ -1,4 +1,7 @@
+import acm.util.RandomGenerator;
+
 public class Vars {
+    public static RandomGenerator rg = new RandomGenerator();
     public static final int APPLICATION_WIDTH = 600;
     public static final int APPLICATION_HEIGHT = 800;
 
