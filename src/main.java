@@ -35,40 +35,41 @@ public class main extends GraphicsProgram {
     }
 
     public void drawBricks() {
-        GameObjects bricks = new GameObjects();
+        GameObjects gameObjects_bricks = new GameObjects();
+
         for (int x = 0; x < NBRICKS_PER_ROW; ++x)
             for (int y = 0; y < NBRICKS_ROWS; ++y) {
                 int bx = x * (BRICK_WIDTH + BRICK_SEP);
                 int by = BRICK_Y_OFFSET + y * (BRICK_HEIGHT + BRICK_SEP);
-                add(bricks.setBrick(bx, by, y));
+                add(GameObjects.Bricks.setBrick(bx, by, y));
             }
     }
 
-    public int getNBRICKS_PER_ROW() {
+    public static int getNBRICKS_PER_ROW() {
         return NBRICKS_PER_ROW;
     }
 
-    public int getNBRICKS_ROWS() {
+    public static int getNBRICKS_ROWS() {
         return NBRICKS_ROWS;
     }
 
-    public int getBRICK_SEP() {
+    public static int getBRICK_SEP() {
         return BRICK_SEP;
     }
 
-    public int getBRICK_WIDTH() {
+    public static int getBRICK_WIDTH() {
         return BRICK_WIDTH;
     }
 
-    public int getBRICK_HEIGHT() {
+    public static int getBRICK_HEIGHT() {
         return BRICK_HEIGHT;
     }
 
-    public int getBRICK_Y_OFFSET() {
+    public static int getBRICK_Y_OFFSET() {
         return BRICK_Y_OFFSET;
     }
 
-    public int getBALL_RADIUS() {
+    public static int getBALL_RADIUS() {
         return BALL_RADIUS;
     }
 }
