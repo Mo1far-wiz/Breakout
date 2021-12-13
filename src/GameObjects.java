@@ -44,8 +44,8 @@ public class GameObjects
             ballInstance.setFilled(true);
             ballInstance.setColor(Color.WHITE);
             ballInstance.setLocation(posX, posY);
-            direction = 1;
-            velocity = 1.5;
+            direction = Vars.rg.nextDouble(0.5, 2.51);
+            velocity = 1;
         }
 
         public void move()
@@ -53,6 +53,7 @@ public class GameObjects
             checkCollisions();
             posX += Math.sin(direction) * velocity;
             posY -= Math.cos(direction) * velocity;
+            //ballInstance.move(posX, posY);
             ballInstance.setLocation(posX, posY);
         }
 
@@ -60,7 +61,7 @@ public class GameObjects
         {
             if (posX <= 0 || posX + size >= Vars.APPLICATION_WIDTH - 15 || posY <= 0)
             {
-                direction += Math.PI / 4;
+                direction += Math.PI / 8;
 
                 if(direction >= 2 * Math.PI)
                     direction -= (2 * Math.PI);
@@ -101,6 +102,8 @@ public class GameObjects
 
         public static void deleteBrick(){
             --brick_count;
+            if(brick_count <= 0)
+                Vars.GameIsOver = true;
         }
     }
 

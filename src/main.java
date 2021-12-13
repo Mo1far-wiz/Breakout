@@ -45,11 +45,11 @@ public class main extends GraphicsProgram
         // game loop
         while(!Vars.GameIsOver)
         {
-            checkCollisions();
+            //checkCollisions();
             ball.move();
             checkCollisions();
             platform.move();
-            pause(3);
+            pause(2);
         }
     }
 
@@ -69,20 +69,28 @@ public class main extends GraphicsProgram
 
         GObject obj = null;
 
-        if(getElementAt(bx1, by1) != null)
+        if(getElementAt(bx1, by1) != null) {
             obj = getElementAt(bx1, by1);
-        else if(getElementAt(bx2, by2) != null)
+        }
+        else if(getElementAt(bx2, by2) != null) {
             obj = getElementAt(bx2, by2);
-        else if(getElementAt(bx3, by3) != null)
+        }
+        else if(getElementAt(bx3, by3) != null) {
             obj = getElementAt(bx3, by3);
-        else if(getElementAt(bx4, by4) != null)
+        }
+        else if(getElementAt(bx4, by4) != null) {
             obj = getElementAt(bx4, by4);
+        }
 
         if(obj == platform.getPlatformInstance()) {
-            ball.setDirection(Math.PI / 4);
+            boolean side = Vars.rg.nextBoolean(0.5);
+            double direction = side == true ? Math.PI/4 : Math.PI/2;
+            ball.setDirection(direction);
         }
         else if(obj != null){
-            ball.setDirection(1.5 * Math.PI);
+            boolean side = Vars.rg.nextBoolean(0.5);
+            double direction = side == true ? Math.PI/1.1 : Math.PI/2.2;
+            ball.setDirection(direction);
             remove(obj);
             GameObjects.Bricks.deleteBrick();
         }
