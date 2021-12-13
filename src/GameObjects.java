@@ -40,7 +40,7 @@ public class GameObjects
             ballInstance.setColor(Color.WHITE);
             ballInstance.setLocation(posX, posY);
             direction = 1;
-            velocity = 3;
+            velocity = 1.5;
         }
 
         public void move()
@@ -53,7 +53,7 @@ public class GameObjects
 
         public void checkCollisions()
         {
-            if (posX <= 0 || posX + size >= Vars.APPLICATION_WIDTH || posY <= 0 || posY + size >= Vars.APPLICATION_HEIGHT)
+            if (posX <= 0 || posX + size >= Vars.APPLICATION_WIDTH - 15 || posY <= 0 || posY + size >= Vars.APPLICATION_HEIGHT - 65)
             {
                 direction += Math.PI / 4;
             }
@@ -87,13 +87,14 @@ public class GameObjects
         }
     }
 
-    public static class Platform{
+    public static class Platform
+    {
         private GRect platformInstance;
 
         private double posX;
         private double posY;
         private double width;
-        private double height;
+        private double trgX;
 
         public GRect getPlatformInstance()
         {
@@ -105,7 +106,7 @@ public class GameObjects
             this.posX = posX;
             this.posY = posY;
             this.width = width;
-            this.height = height;
+            this.trgX = posX;
 
             platformInstance = new GRect(posX, posY, width, height);
 
@@ -116,13 +117,16 @@ public class GameObjects
         public void move()
         {
             //checkCollisions();
-            double trgX = Vars.MouseX - width/2;
+            trgX = Vars.MouseX - width/2;
+
             double angle = Math.atan((70) / (trgX - this.posX));
 
-            if(trgX >= posX)
-                posX += Math.cos(angle) * 3;
-            else
-                posX -= Math.cos(angle) * 3;
+            if(trgX >= posX) {
+                if(posX + width < Vars.APPLICATION_WIDTH-15)
+                    posX += Math.cos(angle) * 3;
+            }
+            else if(posX > 0)
+                    posX -= Math.cos(angle) * 3;
 
             platformInstance.setLocation(posX, posY);
         }

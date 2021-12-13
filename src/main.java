@@ -1,7 +1,9 @@
 import acm.program.GraphicsProgram;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import acm.util.RandomGenerator;
 
 public class main extends GraphicsProgram
 {
@@ -10,14 +12,16 @@ public class main extends GraphicsProgram
         this.setSize(Vars.APPLICATION_WIDTH, Vars.APPLICATION_HEIGHT);
         this.setBackground(Color.decode("#263238"));
         addMouseListeners();
+        addKeyListeners();
 
         drawBricks();
 
-        GameObjects.ball ball = new GameObjects.ball(100, 100, Vars.BALL_RADIUS);
-        add(ball.getBallInstance());
-
         GameObjects.Platform platform = new GameObjects.Platform(100, 600, Vars.PADDLE_WIDTH, Vars.PADDLE_HEIGHT);
         add(platform.getPlatformInstance());
+
+        GameObjects.ball ball = new GameObjects.ball(platform.getPlatformInstance().getX()+platform.getPlatformInstance().getWidth()/2 - Vars.BALL_RADIUS/2,
+                platform.getPlatformInstance().getY() - Vars.BALL_RADIUS, Vars.BALL_RADIUS);
+        add(ball.getBallInstance());
 
         while(true)
         {
@@ -25,6 +29,11 @@ public class main extends GraphicsProgram
             platform.move();
             pause(5);
         }
+    }
+
+    private void checkCollisions()
+    {
+
     }
 
     public void mouseMoved(MouseEvent e)
