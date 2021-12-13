@@ -57,20 +57,17 @@ public class GameObjects
             {
                 direction += Math.PI / 4;
             }
-
-
-
+            // -------------------------------------
         }
     }
 
-
-    /*public static class Bricks {
+    public static class Bricks {
         public static GRoundRect setBrick(double x, double y, int nrow) {
-            //GRoundRect brick = new GRoundRect(getBRICK_WIDTH(), getBRICK_HEIGHT());
+            GRoundRect brick = new GRoundRect(Vars.BRICK_WIDTH, Vars.BRICK_HEIGHT);
             brick.setFilled(true);
             brick.setLocation(x, y);
 
-            int color_rows = main.NBRICKS_ROWS / 5;
+            int color_rows = Vars.NBRICKS_ROWS / 5;
             nrow /= color_rows;
 
             if (nrow > 4)
@@ -88,8 +85,46 @@ public class GameObjects
                 brick.setColor(Color.decode("#00b8d4"));
             return brick;
         }
-    }*/
+    }
 
+    public static class Platform{
+        private GRect platformInstance;
 
+        private double posX;
+        private double posY;
+        private double width;
+        private double height;
 
+        public GRect getPlatformInstance()
+        {
+            return platformInstance;
+        }
+
+        public Platform(double posX, double posY, double width, double height)
+        {
+            this.posX = posX;
+            this.posY = posY;
+            this.width = width;
+            this.height = height;
+
+            platformInstance = new GRect(posX, posY, width, height);
+
+            platformInstance.setFilled(true);
+            platformInstance.setColor(Color.WHITE);
+        }
+
+        public void move()
+        {
+            //checkCollisions();
+            double trgX = Vars.MouseX - width/2;
+            double angle = Math.atan((70) / (trgX - this.posX));
+
+            if(trgX >= posX)
+                posX += Math.cos(angle) * 3;
+            else
+                posX -= Math.cos(angle) * 3;
+
+            platformInstance.setLocation(posX, posY);
+        }
+    }
 }
