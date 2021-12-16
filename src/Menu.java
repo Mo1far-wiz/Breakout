@@ -9,24 +9,64 @@ import java.awt.*;
 
 public class Menu extends GraphicsProgram {
     double menu_height = Vars.APPLICATION_HEIGHT / 2;
-    GRect background = new GRect(0, Vars.BRICK_Y_OFFSET, Vars.APPLICATION_WIDTH , menu_height);
-    GLabel text = new GLabel("Atari Breakout.\n (press space to start)");
-    GCompound menu = new GCompound();
+    GRect win_background = new GRect(0, Vars.BRICK_Y_OFFSET, Vars.APPLICATION_WIDTH , menu_height/4);
+    GRect lose_background = new GRect(0, Vars.BRICK_Y_OFFSET, Vars.APPLICATION_WIDTH , menu_height/4);
+
+    GLabel start_text = new GLabel("Atari Breakout.\n (press space to start)");
+    GLabel win_text = new GLabel("You won!");
+    GLabel lose_text= new GLabel("You lost. ;(");
+
+    GCompound startMenu = new GCompound();
+    GCompound winMenu = new GCompound();
+    GCompound loseMenu = new GCompound();
     public Menu(){
-        background.setFilled(true);
-        background.setColor(Color.decode("#117a65"));
+        win_background.setFilled(true);
+        win_background.setColor(Color.decode("#117a65"));
 
-        text.setFont("TimesNewRoman-" + (int)((Vars.APPLICATION_WIDTH/2.7) * (menu_height/2.5) / 1000));
-        double text_x = (Vars.APPLICATION_WIDTH - text.getWidth() * 1.1);
-        double text_y = (menu_height / 2) + Vars.BRICK_Y_OFFSET + (text.getAscent() / 2);
-        text.setLocation(text_x, text_y);
-        text.setColor(Color.decode("#fdfefe"));
+        lose_background.setFilled(true);
+        lose_background.setColor(Color.decode("#7b241c"));
 
-        menu.add(background);
-        menu.add(text);
+        int kegel = (int)((Vars.APPLICATION_WIDTH/2.7) * (menu_height/2.5) / 1000);
+
+        start_text.setFont("TimesNewRoman-" + kegel);
+        double start_text_x = (Vars.APPLICATION_WIDTH - start_text.getWidth() * 1.1);
+        double start_text_y = (menu_height / 2) + Vars.BRICK_Y_OFFSET + (start_text.getAscent() / 2);
+        start_text.setLocation(start_text_x, start_text_y);
+        start_text.setColor(Color.decode("#fdfefe"));
+
+        win_text.setFont("TimesNewRoman-" + kegel);
+        double win_text_x = (Vars.APPLICATION_WIDTH - start_text.getWidth() * 1.1);
+        double win_text_y = (menu_height / 2) + Vars.BRICK_Y_OFFSET + (start_text.getAscent() / 2);
+        win_text.setLocation(win_text_x, win_text_y);
+        win_text.setColor(Color.decode("#fdfefe"));
+
+
+
+        lose_text.setFont("TimesNewRoman-" + kegel);
+        double lose_text_x = (Vars.APPLICATION_WIDTH - start_text.getWidth() * 1.1);
+        double lose_text_y = (menu_height / 2) + Vars.BRICK_Y_OFFSET + (start_text.getAscent() / 2);
+        lose_text.setLocation(lose_text_x, lose_text_y);
+        lose_text.setColor(Color.decode("#fdfefe"));
+
+        lose_background.setLocation(0, lose_text_y - 2*(start_text.getAscent()));
+        win_background.setLocation(0, lose_text_y - 2*(start_text.getAscent()));
+
+        startMenu.add(start_text);
+
+        winMenu.add(win_background);
+        winMenu.add(win_text);
+
+        loseMenu.add(lose_background);
+        loseMenu.add(lose_text);
     }
 
-    public GObject getMenuGObject(){
-        return menu;
+    public GObject getStartMenuGObject(){
+        return startMenu;
+    }
+    public GObject getWinMenuGObject(){
+        return winMenu;
+    }
+    public GObject getLoseMenuGObject(){
+        return loseMenu;
     }
 }

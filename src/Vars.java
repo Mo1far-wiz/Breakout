@@ -8,7 +8,7 @@ public class Vars {
     public static final int PADDLE_WIDTH = 100;
     public static final int PADDLE_HEIGHT = 10;
 
-    public static final int NBRICKS_PER_ROW = 5;
+    public static final int NBRICKS_PER_ROW = 1;
     public static final int NBRICKS_ROWS = 5;
 
     public static final int BRICK_SEP = 10;

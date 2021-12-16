@@ -4,7 +4,6 @@ import acm.program.GraphicsProgram;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import acm.util.RandomGenerator;
 
 public class main extends GraphicsProgram
 {
@@ -31,13 +30,13 @@ public class main extends GraphicsProgram
 
         // init menu
         Menu menu = new Menu();
-        add(menu.getMenuGObject());
+        add(menu.getStartMenuGObject());
 
         // wait 4 game to start
         while(!gameStarted) { pause(5); }
 
         // remove menu
-        remove(menu.getMenuGObject());
+        remove(menu.getStartMenuGObject());
 
         // draw bricks
         drawBricks();
@@ -51,6 +50,11 @@ public class main extends GraphicsProgram
             platform.move();
             pause(2);
         }
+
+        if(Vars.HasWon)
+            add(menu.getWinMenuGObject());
+        else
+            add(menu.getLoseMenuGObject());
     }
 
     private void checkCollisions()
@@ -82,13 +86,13 @@ public class main extends GraphicsProgram
             obj = getElementAt(bx4, by4);
         }
 
+        boolean side = Vars.rg.nextBoolean(0.5);
+
         if(obj == platform.getPlatformInstance()) {
-            boolean side = Vars.rg.nextBoolean(0.5);
             double direction = side == true ? Math.PI/4 : Math.PI/2;
             ball.setDirection(direction);
         }
         else if(obj != null){
-            boolean side = Vars.rg.nextBoolean(0.5);
             double direction = side == true ? Math.PI/1.1 : Math.PI/2.2;
             ball.setDirection(direction);
             remove(obj);
